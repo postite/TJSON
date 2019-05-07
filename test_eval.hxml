@@ -1,7 +1,7 @@
 #-neko TJSONTest.n 
--neko TJSONTest.n
+#-neko TJSONTest.n
 -main TestAll
 -cp lib
 -lib hx3compat
 -cp tests
--cmd neko TJSONTest.n
+--interp

@@ -76,7 +76,9 @@ class TJSONParser{
 			if(key == "," && !lastSymbolQuoted)continue;
 			if(key == "}" && !lastSymbolQuoted){
 				//end of the object. Run the TJ_unserialize function if there is one
-				if( isClassOb && #if flash9 try o.TJ_unserialize != null catch( e : Dynamic ) false #elseif (cs || java) Reflect.hasField(o, "TJ_unserialize") #else o.TJ_unserialize != null #end  ) {
+				if( isClassOb && #if flash9 try o.TJ_unserialize != null catch( e : Dynamic ) false 
+				#elseif (cs || java || eval || php) Reflect.hasField(o, "TJ_unserialize") 
+				#else o.TJ_unserialize != null #end  ) {
 					o.TJ_unserialize();
 				}
 				return o;
@@ -423,7 +425,8 @@ class TJSONEncoder{
 				buffer.add('"_hxcls"'+style.keyValueSeperator(depth));
 				buffer.add(encodeValue( className, style, depth));
 
-				if( #if flash9 try obj.TJ_noEncode != null catch( e : Dynamic ) false #elseif (cs || java) Reflect.hasField(obj, "TJ_noEncode") #else obj.TJ_noEncode != null #end  ) {
+				if( #if flash9 try obj.TJ_noEncode != null catch( e : Dynamic ) false 
+				#elseif (cs || java || eval || php) Reflect.hasField(obj, "TJ_noEncode") #else obj.TJ_noEncode != null #end  ) {
 					dontEncodeFields = obj.TJ_noEncode();
 				}
 			default:
